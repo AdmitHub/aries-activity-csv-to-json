@@ -1,0 +1,19 @@
+#Aries Integration for CSV to JSON
+
+This is an integration to convert CSV files to JSON format.
+
+##Methods
+This integration uses one method, `onTask`. The method is called by default.
+
+###onTask
+`onTask` -- Returns the file, given in CSV format, and transforms it to JSON format.
+
+##Configuration
+There is no configuration needed for this integration.
+
+##Response
+```javascript
+{"street":"3526 HIGH ST","city":"SACRAMENTO","zip":95838,"state":"CA","beds":2,"baths":1,"sq__ft":836,"type":"Residential","sale_date":"Wed May 21 00:00:00 EDT 2008","price":59222,"latitude":38.631913,"longitude":-121.434879}
+{"street":"51 OMAHA CT","city":"SACRAMENTO","zip":95823,"state":"CA","beds":3,"baths":1,"sq__ft":1167,"type":"Residential","sale_date":"Wed May 21 00:00:00 EDT 2008","price":68212,"latitude":38.478902,"longitude":-121.431028}
+{"street":"2796 BRANCH ST","city":"SACRAMENTO","zip":95815,"state":"CA","beds":2,"baths":1,"sq__ft":796,"type":"Residential","sale_date":"Wed May 21 00:00:00 EDT 2008","price":68880,"latitude":38.618305,"longitude":-121.443839}
+```
