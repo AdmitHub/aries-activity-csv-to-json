@@ -10,6 +10,10 @@ dependencies:
     - docker info
     - docker build --rm=false -t astronomerio/csv-to-json .
 
+test:
+  override: 
+    - npm run coverage
+
 deployment:
   production:
     tag: /v[0-9]+(\.[0-9]+)*/
