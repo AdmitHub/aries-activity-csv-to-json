@@ -1,26 +1,29 @@
-import { ActivityTester } from 'aries-data';
-import test from 'blue-tape';
-import CsvToJson from '..';
-import fs from 'fs';
+import CsvToJson from '../lib/index';
 import _ from 'highland';
-import output from 'test/output';
+import fs from 'fs';
+import chai from 'chai';
+import isEqual from 'lodash.isequal';
+const assert = chai.assert;
 
-test('proper configuration', t => {
-    t.equal(CsvToJson.props.name, require('../package.json').name);
-    t.equal(CsvToJson.props.version, require('../package.json').version);
-    t.end();
-});
+describe('CsvToJson', () => {
 
-test('transforms csv file to json', async (t) =>  {
-	const source = new CsvToJson();
-	const rs = fs.createReadStream('test/input.csv')
-	const activityTask = {
-		input: {
-			file: _(rs)
-		}
-	}
-	const data = await source.onTaskCopy(activityTask);
-	data.on('data', (dat) => {
-		fs.appendFile('test.txt', dat);
-	});
+  //need to test private methods because
+  //decorators complicate testing onTask
+  describe('#_convertCsvToJson', () => {
+    it('should transform csv file to json', (done) => {
+      const expectedOutput = _(fs.createReadStream('test/output.json'));
+      expectedOutput.split().toArray(outputArray => {
+        const rs = _(fs.createReadStream('test/input.csv'));
+        const source = new CsvToJson();
+        const stream = source._convertCsvToJson(rs);
+        stream.on('data', (data) => {
+          const actual = JSON.parse(data);
+          const expected = JSON.parse(outputArray.shift());
+          //assert deep equal
+          assert(isEqual(actual, expected));
+        });
+        stream.on('finish', () => done());
+      });
+    });
+  });
 });
