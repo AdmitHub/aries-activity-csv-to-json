@@ -1,5 +1,7 @@
 #Aries Integration for CSV to JSON
 
+[![CircleCI](https://circleci.com/gh/aries-data/aries-activity-csv-to-json.svg?style=svg)](https://circleci.com/gh/aries-data/aries-activity-csv-to-json)
+
 This is an integration to convert CSV files to JSON format.
 
 ##Methods
