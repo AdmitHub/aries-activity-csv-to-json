@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   override:
-    - npm install --dev
+    - npm install --only=dev
     - docker info
     - docker build --rm=false -t astronomerio/csv-to-json .
 
