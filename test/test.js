@@ -9,8 +9,9 @@ describe('CsvToJson', () => {
 
   //need to test private methods because
   //decorators complicate testing onTask
-  describe('#_convertCsvToJson', () => {
-    it('should transform csv file to json', (done) => {
+  describe('#_convertCsvToJson', function() {
+
+    it('should transform csv file to json', function(done) {
       const expectedOutput = _(fs.createReadStream('test/output.json'));
       expectedOutput.split().toArray(outputArray => {
         const rs = _(fs.createReadStream('test/input.csv'));
@@ -25,5 +26,7 @@ describe('CsvToJson', () => {
         stream.on('finish', () => done());
       });
     });
+
   });
+
 });
