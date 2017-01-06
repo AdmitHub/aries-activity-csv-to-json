@@ -1,23 +1,22 @@
 machine:
   environment:
     IMAGE_NAME: astronomerio/csv-to-json
-  node:
-    version: 6.9.1
   services:
     - docker
 
 dependencies:
   override:
-    - npm install
     - docker info
     - docker build --rm=false -t $IMAGE_NAME .
 
 test:
   override: 
-    - npm run coverage
+    - docker run --entrypoint npm $IMAGE_NAME run lint
+    - docker run --name $CONTAINER_NAME --entrypoint npm $IMAGE_NAME run coverage
   post:
     - mkdir $CIRCLE_ARTIFACTS/coverage
-    - mv coverage/* $CIRCLE_ARTIFACTS/coverage
+    - CONTAINER_NAME=$(docker ps -l --format "{{.Names}}")
+    - docker cp $(CONTAINER_NAME):/usr/local/src/coverage $CIRCLE_ARTIFACTS/coverage
 
 deployment:
   # git tags get deployed to docker hub with the latest tag

@@ -9,10 +9,12 @@
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "lint": "eslint lib",
     "tail": "tail -f app.log | bunyan -o short",
-    "build-image": "docker build --no-cache -t astronomerio/csv-to-json ."
+    "build-image": "docker build --no-cache -t astronomerio/csv-to-json .",
+    "docker-coverage": "docker run --entrypoint npm astronomerio/csv-to-json run coverage",
+    "docker-lint": "docker run --entrypoint npm astronomerio/csv-to-json run lint"
   },
   "author": "trong-le",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.1",
