@@ -13,7 +13,8 @@ describe('CsvToJson', () => {
             const expectedOutput = _(fs.createReadStream('test/output.json'));
             expectedOutput.split().toArray((outputArray) => {
                 const rs = _(fs.createReadStream('test/input.csv'));
-                const stream = CsvToJson.convertCsvToJson(rs);
+                const csvToJson = new CsvToJson();
+                const stream = csvToJson.convertCsvToJson(rs);
                 stream.on('data', (data) => {
                     const actual = JSON.parse(data);
                     const expected = JSON.parse(outputArray.shift());
@@ -23,26 +24,29 @@ describe('CsvToJson', () => {
                 stream.on('finish', () => done());
             });
         });
-    });
 
-    it('should escape line by line for malformed csv files', function (done) {
-        const expectedOutput = _(fs.createReadStream('test/dataWithCommaAndQuotes.json'));
-        expectedOutput.split().toArray((outputArray) => {
-            const rs = _(fs.createReadStream('test/dataWithCommaAndQuotes.csv'));
-            const stream = CsvToJson.convertCsvToJson(rs, { escapeNestedQuotes: true });
-            stream.on('data', (data) => {
-                const actual = JSON.parse(data);
-                const expected = JSON.parse(outputArray.shift());
-                assert(isEqual(actual, expected));
+        it('should escape line by line for malformed csv files', function (done) {
+            const expectedOutput = _(fs.createReadStream('test/dataWithCommaAndQuotes.json'));
+            expectedOutput.split().toArray((outputArray) => {
+                const rs = _(fs.createReadStream('test/dataWithCommaAndQuotes.csv'));
+                const csvToJson = new CsvToJson();
+                const stream = csvToJson.convertCsvToJson(rs, { escapeNestedQuotes: true });
+                stream.on('data', (data) => {
+                    const actual = JSON.parse(data);
+                    const expected = JSON.parse(outputArray.shift());
+                    assert(isEqual(actual, expected));
+                });
+                stream.on('finish', () => done());
             });
-            stream.on('finish', () => done());
         });
     });
 
-    describe('#_buildConverter', function () {
+    describe('#applyConfig', function () {
         it('sets preProcessLine if escapeNestedQuotes is true', function () {
-            const converter = CsvToJson.buildConverter({ escapeNestedQuotes: true });
-            assert(converter.preProcessLine.toString() === escapeNestedQuotes.toString());
+            const csvToJson = new CsvToJson();
+            csvToJson.applyConfig({ escapeNestedQuotes: true });
+            assert(csvToJson.converter.preProcessLine.toString() === escapeNestedQuotes.toString());
         });
     });
+
 });
