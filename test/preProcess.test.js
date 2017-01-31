@@ -1,4 +1,4 @@
-import { escapeNestedQuotes } from '../lib/util/preProcess';
+import escapeNestedQuotes from '../lib/util/preProcess';
 import chai from 'chai';
 const assert = chai.assert;
 
