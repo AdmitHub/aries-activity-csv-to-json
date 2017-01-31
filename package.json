@@ -7,11 +7,9 @@
     "test": "mocha --require babel-polyfill --compilers js:babel-register",
     "test-watch": "mocha -w --require babel-polyfill --compilers js:babel-register",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
-    "lint": "eslint lib",
     "tail": "tail -f app.log | bunyan -o short",
     "build-image": "docker build --no-cache -t astronomerio/csv-to-json .",
-    "docker-coverage": "docker run --entrypoint npm astronomerio/csv-to-json run coverage",
-    "docker-lint": "docker run --entrypoint npm astronomerio/csv-to-json run lint"
+    "docker-coverage": "docker run --entrypoint npm astronomerio/csv-to-json run coverage"
   },
   "author": "trong-le",
   "license": "MIT",
