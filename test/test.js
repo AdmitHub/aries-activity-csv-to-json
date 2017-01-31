@@ -1,5 +1,3 @@
-import CsvToJson from '../lib/index';
-import { escapeNestedQuotes } from '../lib/util/preProcess';
 import _ from 'highland';
 import fs from 'fs';
 import { assert } from 'chai';
@@ -21,8 +19,6 @@ describe('CsvToJson', () => {
           //assert deep equal
           assert(isEqual(actual, expected));
         });
-        stream.on('finish', () => done());
-      });
     });
   });
 
@@ -39,13 +35,4 @@ describe('CsvToJson', () => {
       });
       stream.on('finish', () => done());
     });
-  });
-
-  describe('#_buildConverter', function() {
-    it('sets preProcessLine if escapeNestedQuotes is true', function() {
-      const csvToJson = new CsvToJson();
-      const converter = csvToJson._buildConverter({ escapeNestedQuotes: true});
-      assert(converter.preProcessLine.toString() === escapeNestedQuotes.toString());
-    });
-  });
 });
