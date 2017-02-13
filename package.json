@@ -9,7 +9,7 @@
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "lint": "eslint lib",
     "tail": "tail -f app.log | bunyan -o short",
-    "build-image": "docker build --no-cache -t astronomerio/csv-to-json .",
+    "build-image": "docker build -t astronomerio/csv-to-json .",
     "docker-coverage": "docker run --entrypoint npm astronomerio/csv-to-json run coverage",
     "docker-lint": "docker run --entrypoint npm astronomerio/csv-to-json run lint"
   },
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "aries-data": "aries-data/aries-data#2.0.4",
-    "csvtojson": "^1.0.3",
+    "csvtojson": "^1.1.4",
     "es6-promisify": "^4.0.0",
     "highland": "^2.9.0",
     "lodash.isequal": "^4.4.0"
