@@ -38,5 +38,18 @@ describe('CsvToJson', () => {
                 stream.on('finish', () => done());
             });
         });
+
+        it('should allow headers to be overridden from config', function(done) {
+            const rs = fs.createReadStream('test/input.csv');
+            const headers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+            const csvToJson = new CsvToJson();
+            const stream = csvToJson.convertCsvToJson(rs, { headers });
+            stream.on('data', (data) => {
+                const json = JSON.parse(data.toString('utf-8'));
+                const keys = Object.keys(json);
+                assert.deepEqual(headers, keys);
+            });
+            stream.on('finish', done);
+        });
     });
 });
