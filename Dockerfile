@@ -1,1 +1,1 @@
-FROM astronomerio/aries-data:2.1.0
+FROM astronomerio/aries.js:1.0.0-onbuild
