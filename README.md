@@ -11,7 +11,8 @@ This integration uses one method, `onTask`. The method is called by default.
 `onTask` -- Returns the file, given in CSV format, and transforms it to JSON format.
 
 ## Configuration
-###Escape Nested Quotes
+
+### Escape Nested Quotes
 Allows for preprocessing the file line by line to escape nested double quotes
 ```javascript
 "escapeNestedQuotes": false
